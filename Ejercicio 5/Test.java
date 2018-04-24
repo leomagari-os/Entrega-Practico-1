@@ -5,20 +5,25 @@ public class Test {
 		Timer t=new Timer();
 		Lista l1=new Lista(new Nodo(1));
 		Lista l2= new Lista(new Nodo(549));
-		for(int i=2;i<1001;i++){
-			l1.insertar(new Nodo(i));
+		for(int i=1;i<10;i++){
+			l1.insertar(new Nodo(new Integer((int)(Math.random()*100)+1)));
 		}
-		for(int i=550;i<1550;i++){
-			l2.insertar(new Nodo(i));
+		for(int i=1;i<10;i++){
+			l2.insertar(new Nodo(new Integer((int)(Math.random()*100)+1)));
 		}
 		t.start();
 		Lista res=l1.getListaElementosComunes(l1, l2);
 		System.out.println("El codigo se ejecuto en: "+t.stop());
-		/*Nodo posRes=res.getHead();
+		if(res==null){
+			System.out.println("No hay numeros en comun.");
+			return;
+		}
+		Nodo posRes=res.getHead();
+		
 		while (posRes!=null){
 			System.out.println(posRes.getValor());
 			posRes=posRes.getSiguiente();
-		}*/
+		}
 		//el algoritmo del punto a:- con una lista de tamaño 5 se ejecuto en 0.193115
 		//						- con una lista de tamaño 10 se ejecuto en 0.27203
 		//						- con una lista de tamaño 50 se ejecuto en 1.057324

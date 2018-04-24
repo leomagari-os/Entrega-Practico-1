@@ -8,12 +8,14 @@ public class Lista {
 	}
 	public Lista getListaElementosComunes(Lista l1, Lista l2){
 		Lista res =null;
-		Nodo n1= l1.getHead();
+		
 		if(!(this.checkOrden(l1))||!(this.checkOrden(l2))){
+			//busco iguales
+			Nodo n1= l1.getHead();
 			while(n1!=null){
 				Nodo n2=l2.getHead();
 				while(n2!=null){
-					if(n1.getValor()==n2.getValor()){
+					if(n1.getValor().equals(n2.getValor())){
 						if(res==null){
 							res= new Lista(new Nodo(n1.getValor()));
 							break;
@@ -34,7 +36,7 @@ public class Lista {
 	public Nodo combinar(Nodo n1,Nodo n2){
 		if(n1==null || n2==null){
 			return null;
-		}else if(n1.getValor()==n2.getValor()){
+		}else if(n1.getValor().equals(n2.getValor())){
 			Nodo nDup= new Nodo(n1.getValor());
 			nDup.setSiguiente(combinar(n1.getSiguiente(),n2.getSiguiente()));
 			return nDup;
@@ -61,18 +63,33 @@ public class Lista {
 			this.head=n;
 			return;
 		}else{
+			if(pos.getSiguiente()==null){
+				pos.setSiguiente(n);
+				return;
+			}
+			pos=pos.getSiguiente();
 			while(pos.getSiguiente()!=null){
 				if(pos.getValor()>=n.getValor()){
 					temp=pos.getValor();
 					pos.setValor(n.getValor());
 					Nodo nTemp=new Nodo(temp);
-					nTemp.setSiguiente(pos);
+					nTemp.setSiguiente(pos.getSiguiente());
 					pos.setSiguiente(nTemp);
 					return;
 				}
 				pos=pos.getSiguiente();
 			}
-			pos.setSiguiente(new Nodo(n.getValor()));
+			if(pos.getValor()>=n.getValor()){
+				temp=pos.getValor();
+				pos.setValor(n.getValor());
+				Nodo nTemp=new Nodo(temp);
+				nTemp.setSiguiente(pos.getSiguiente());
+				pos.setSiguiente(nTemp);
+				return;
+			}else{
+				pos.setSiguiente(new Nodo(n.getValor()));
+			}
+			
 		}
 	}
 	public boolean checkOrden(Lista l){
